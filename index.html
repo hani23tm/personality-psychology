@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>روان‌شناسی شخصیت | مبانی، نظریه‌ها و روش‌های علمی</title>
+<meta name="description" content="مروری علمی و دانشگاهی بر مفهوم شخصیت، عوامل شکل‌دهنده آن، نظریه‌های مهم و روش‌های سنجش شخصیت.">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#7c3aed;
+  --primary-light:#a78bfa;
+  --accent:#ec4899;
+  --accent2:#06b6d4;
+  --accent3:#f59e0b;
+  --green:#10b981;
+  --dark:#080510;
+  --dark2:#0f0a1e;
+  --card:#14102a;
+  --card2:#1a1437;
+  --border:rgba(139,92,246,.18);
+  --text:#ece8f8;
+  --muted:#9c93b8;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Vazirmatn',sans-serif;
+  background:var(--dark);
+  color:var(--text);
+  line-height:2;
+  overflow-x:hidden;
+  font-size:16px;
+}
+
+/* ============ BACKGROUND LAYERS ============ */
+.bg-orbs{position:fixed;inset:0;z-index:-2;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.35;animation:float 25s infinite ease-in-out}
+.orb1{width:600px;height:600px;background:var(--primary);top:-200px;right:-200px}
+.orb2{width:500px;height:500px;background:var(--accent);bottom:-150px;left:-150px;animation-delay:-8s}
+.orb3{width:400px;height:400px;background:var(--accent2);top:50%;left:45%;animation-delay:-16s;opacity:.2}
+@keyframes float{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(80px,-60px) scale(1.15)}
+  66%{transform:translate(-60px,80px) scale(.9)}
+}
+.grid-bg{
+  position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(139,92,246,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(139,92,246,.05) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse at center,black 30%,transparent 80%);
+  -webkit-mask-image:radial-gradient(ellipse at center,black 30%,transparent 80%);
+}
+
+/* ============ PROGRESS ============ */
+#progress{position:fixed;top:0;right:0;height:4px;width:0;background:linear-gradient(90deg,var(--primary-light),var(--accent),var(--accent2));z-index:1001;transition:width .1s;box-shadow:0 0 20px var(--primary-light)}
+
+/* ============ NAV ============ */
+nav{
+  position:fixed;top:0;right:0;left:0;z-index:1000;
+  padding:1.1rem 2rem;
+  display:flex;justify-content:space-between;align-items:center;
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  background:rgba(8,5,16,.7);
+  border-bottom:1px solid var(--border);
+  transition:.4s;
+}
+nav.scrolled{padding:.7rem 2rem;background:rgba(8,5,16,.95);box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.logo{
+  font-weight:900;font-size:1.15rem;
+  background:linear-gradient(90deg,var(--primary-light),var(--accent),var(--accent2));
+  background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shine 5s linear infinite;
+  display:flex;align-items:center;gap:.5rem;
+}
+.logo::before{content:'🧠';font-size:1.4rem;filter:drop-shadow(0 0 8px var(--primary))}
+@keyframes shine{to{background-position:200% center}}
+.nav-links{display:flex;gap:1.6rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;font-weight:600;transition:.3s;position:relative;padding:.3rem 0}
+.nav-links a:hover{color:var(--text)}
+.nav-links a::after{content:'';position:absolute;bottom:0;right:0;width:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:.35s;border-radius:2px}
+.nav-links a:hover::after{width:100%}
+@media(max-width:900px){.nav-links{display:none}}
+
+/* ============ HERO ============ */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:8rem 2rem 4rem;position:relative;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.55rem 1.4rem;border-radius:50px;
+  background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.35);
+  color:var(--primary-light);font-size:.82rem;font-weight:600;margin-bottom:2rem;
+  animation:fadeUp .9s ease both;
+  backdrop-filter:blur(10px);
+}
+.hero-badge::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+
+.hero h1{
+  font-size:clamp(2rem,5.5vw,4.2rem);font-weight:900;line-height:1.35;margin-bottom:1.5rem;
+  animation:fadeUp .9s .1s ease both;
+}
+.hero h1 .grad{
+  background:linear-gradient(120deg,var(--primary-light),var(--accent),var(--accent2),var(--primary-light));
+  background-size:300% auto;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shine 6s linear infinite;
+}
+.hero .subtitle{
+  max-width:760px;font-size:1.05rem;color:var(--muted);margin-bottom:2.5rem;line-height:2.1;
+  animation:fadeUp .9s .2s ease both;
+}
+.hero .meta{
+  display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:center;
+  font-size:.8rem;color:var(--muted);margin-bottom:2rem;
+  animation:fadeUp .9s .25s ease both;
+}
+.hero .meta span{display:flex;align-items:center;gap:.4rem;padding:.4rem .9rem;background:rgba(139,92,246,.08);border-radius:30px;border:1px solid var(--border)}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;animation:fadeUp .9s .3s ease both}
+.btn{
+  padding:.9rem 2rem;border-radius:50px;text-decoration:none;font-weight:700;font-size:.9rem;
+  transition:.35s cubic-bezier(.2,.8,.2,1);display:inline-flex;align-items:center;gap:.5rem;
+  border:none;cursor:pointer;font-family:inherit;
+}
+.btn-primary{background:linear-gradient(120deg,var(--primary),var(--accent));color:#fff;box-shadow:0 10px 30px rgba(139,92,246,.4)}
+.btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 18px 45px rgba(236,72,153,.5)}
+.btn-ghost{background:rgba(255,255,255,.04);color:var(--text);border:1px solid rgba(139,92,246,.3)}
+.btn-ghost:hover{background:rgba(139,92,246,.15);transform:translateY(-3px);border-color:var(--primary-light)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:translateY(0)}}
+
+/* Animated brain SVG in hero */
+.hero-visual{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:min(700px,90vw);height:min(700px,90vw);
+  z-index:-1;opacity:.12;pointer-events:none;
+  animation:rotateSlow 60s linear infinite;
+}
+@keyframes rotateSlow{to{transform:translate(-50%,-50%) rotate(360deg)}}
+
+.scroll-hint{
+  position:absolute;bottom:2rem;color:var(--muted);font-size:.75rem;
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  animation:bounce 2s infinite;
+}
+.scroll-hint::after{content:'▼';font-size:1rem}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+
+/* ============ SECTIONS ============ */
+section{padding:5rem 2rem;max-width:1150px;margin:0 auto;scroll-margin-top:80px}
+.section-title{text-align:center;margin-bottom:3.5rem}
+.section-title .tag{
+  display:inline-block;color:var(--accent);font-weight:700;font-size:.8rem;letter-spacing:2px;
+  margin-bottom:.8rem;padding:.35rem 1rem;background:rgba(236,72,153,.1);
+  border-radius:30px;border:1px solid rgba(236,72,153,.25);
+}
+.section-title h2{font-size:clamp(1.7rem,4vw,2.6rem);font-weight:900;margin-bottom:1rem;line-height:1.4}
+.section-title h2 .grad{background:linear-gradient(120deg,var(--primary-light),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.section-title p{color:var(--muted);max-width:680px;margin:0 auto;font-size:.98rem}
+
+/* ============ CARDS ============ */
+.grid{display:grid;gap:1.5rem}
+.grid-2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+
+.card{
+  background:linear-gradient(145deg,rgba(20,16,42,.95),rgba(26,20,55,.7));
+  border:1px solid var(--border);border-radius:22px;padding:2rem;
+  transition:.45s cubic-bezier(.2,.8,.2,1);position:relative;overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;top:0;right:0;width:100%;height:3px;
+  background:linear-gradient(90deg,var(--primary),var(--accent),var(--accent2));
+  transform:scaleX(0);transition:.5s;transform-origin:right;
+}
+.card:hover{transform:translateY(-8px);border-color:rgba(139,92,246,.55);box-shadow:0 25px 60px rgba(0,0,0,.5)}
+.card:hover::before{transform:scaleX(1)}
+.card-icon{
+  width:56px;height:56px;border-radius:16px;
+  background:linear-gradient(135deg,rgba(124,58,237,.25),rgba(236,72,153,.15));
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;margin-bottom:1.2rem;
+  border:1px solid rgba(139,92,246,.25);
+}
+.card h3{font-size:1.15rem;margin-bottom:.7rem;font-weight:700}
+.card p{color:var(--muted);font-size:.92rem;line-height:1.95}
+
+/* ============ DEFINITION TABLE ============ */
+.compare-table{
+  width:100%;border-collapse:separate;border-spacing:0;
+  background:linear-gradient(145deg,rgba(20,16,42,.95),rgba(26,20,55,.7));
+  border-radius:20px;overflow:hidden;border:1px solid var(--border);
+}
+.compare-table th{
+  background:linear-gradient(90deg,rgba(124,58,237,.3),rgba(236,72,153,.2));
+  padding:1.1rem 1.3rem;font-weight:800;font-size:.92rem;text-align:right;
+}
+.compare-table td{padding:1rem 1.3rem;border-top:1px solid var(--border);font-size:.9rem;color:var(--muted)}
+.compare-table td:first-child{color:var(--text);font-weight:700}
+.compare-table tr:hover td{background:rgba(139,92,246,.06)}
+
+/* ============ THEORIES ============ */
+.theory{
+  background:linear-gradient(145deg,rgba(20,16,42,.95),rgba(26,20,55,.7));
+  border:1px solid var(--border);border-radius:22px;padding:2rem;margin-bottom:1.5rem;
+  display:flex;gap:1.5rem;align-items:flex-start;transition:.5s cubic-bezier(.2,.8,.2,1);
+  position:relative;overflow:hidden;
+}
+.theory::after{
+  content:'';position:absolute;top:0;right:0;width:4px;height:100%;
+  background:linear-gradient(180deg,var(--primary),var(--accent));
+  transform:scaleY(0);transform-origin:top;transition:.5s;
+}
+.theory:hover{transform:translateX(-10px);border-color:rgba(236,72,153,.5);box-shadow:-15px 15px 40px rgba(0,0,0,.4)}
+.theory:hover::after{transform:scaleY(1)}
+.theory-num{
+  min-width:64px;height:64px;border-radius:18px;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.4rem;color:#fff;
+  box-shadow:0 10px 25px rgba(124,58,237,.4);flex-shrink:0;
+}
+.theory-body h3{font-size:1.25rem;margin-bottom:.4rem;font-weight:800}
+.theory-body .name{color:var(--accent2);font-size:.85rem;font-weight:700;margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem}
+.theory-body .name::before{content:'👤'}
+.theory-body p{color:var(--muted);font-size:.92rem;line-height:1.95}
+@media(max-width:600px){.theory{flex-direction:column;gap:1.2rem}}
+
+/* ============ BIG FIVE ============ */
+.traits{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.2rem}
+.trait{
+  border-radius:22px;padding:2rem 1.5rem;text-align:center;
+  border:1px solid rgba(255,255,255,.08);transition:.5s cubic-bezier(.2,.8,.2,1);
+  position:relative;overflow:hidden;
+}
+.trait::before{
+  content:'';position:absolute;inset:0;opacity:0;transition:.5s;
+  background:radial-gradient(circle at 50% 0%,rgba(255,255,255,.1),transparent 70%);
+}
+.trait:hover{transform:translateY(-10px) scale(1.03);box-shadow:0 25px 50px rgba(0,0,0,.5)}
+.trait:hover::before{opacity:1}
+.trait:nth-child(1){background:linear-gradient(160deg,rgba(139,92,246,.3),rgba(20,16,42,.95))}
+.trait:nth-child(2){background:linear-gradient(160deg,rgba(236,72,153,.3),rgba(20,16,42,.95))}
+.trait:nth-child(3){background:linear-gradient(160deg,rgba(6,182,212,.3),rgba(20,16,42,.95))}
+.trait:nth-child(4){background:linear-gradient(160deg,rgba(245,158,11,.3),rgba(20,16,42,.95))}
+.trait:nth-child(5){background:linear-gradient(160deg,rgba(16,185,129,.3),rgba(20,16,42,.95))}
+.trait .letter{
+  font-size:2rem;font-weight:900;line-height:1;margin-bottom:.8rem;
+  background:linear-gradient(135deg,#fff,rgba(255,255,255,.5));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.trait h3{font-size:1rem;margin-bottom:.5rem;font-weight:800}
+.trait p{font-size:.82rem;color:var(--muted);margin-bottom:.8rem;line-height:1.85}
+.trait .en{font-size:.72rem;color:var(--primary-light);font-weight:700;letter-spacing:1px;text-transform:uppercase}
+
+/* ============ BAR CHART ============ */
+.chart-container{
+  background:linear-gradient(145deg,rgba(20,16,42,.95),rgba(26,20,55,.7));
+  border:1px solid var(--border);border-radius:22px;padding:2.5rem;margin-top:2.5rem;
+}
+.chart-container h3{text-align:center;margin-bottom:2rem;font-size:1.15rem;font-weight:800}
+.bar-row{display:flex;align-items:center;gap:1rem;margin-bottom:1.3rem}
+.bar-label{min-width:120px;font-size:.85rem;color:var(--muted);font-weight:600}
+.bar-track{flex:1;height:34px;background:rgba(255,255,255,.05);border-radius:10px;overflow:hidden;position:relative}
+.bar-fill{
+  height:100%;border-radius:10px;width:0;
+  transition:width 1.8s cubic-bezier(.2,.8,.2,1);
+  position:relative;display:flex;align-items:center;justify-content:flex-end;padding-left:.8rem;
+  font-size:.75rem;font-weight:800;color:#fff;
+}
+.bar-fill::after{
+  content:'';position:absolute;inset:0;border-radius:10px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.3));
+  animation:shimmer 2s infinite;
+}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+
+/* ============ STATS ============ */
+.stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.5rem;
+  background:linear-gradient(135deg,rgba(109,40,217,.15),rgba(236,72,153,.1));
+  border:1px solid var(--border);border-radius:24px;padding:3rem 2rem;
+}
+.stat{text-align:center}
+.stat .num{
+  font-size:2.6rem;font-weight:900;line-height:1;
+  background:linear-gradient(120deg,var(--primary-light),var(--accent));
+  -webkit-background-clip:text;background-clip:text;color:transparent;display:block;
+}
+.stat .label{color:var(--muted);font-size:.85rem;margin-top:.6rem;display:block}
+
+/* ============ QUOTE ============ */
+.quote{
+  text-align:center;padding:4rem 2.5rem;position:relative;
+  background:linear-gradient(135deg,rgba(20,16,42,.9),rgba(26,20,55,.6));
+  border-radius:28px;border:1px solid rgba(139,92,246,.25);
+  overflow:hidden;
+}
+.quote::before{
+  content:'"';position:absolute;top:-1rem;right:2rem;font-size:8rem;
+  color:rgba(139,92,246,.15);font-family:Georgia,serif;line-height:1;
+}
+.quote::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+}
+.quote p{
+  font-size:clamp(1.05rem,2.3vw,1.4rem);font-weight:600;
+  max-width:780px;margin:0 auto 1.5rem;position:relative;z-index:1;line-height:2;
+}
+.quote .author{color:var(--accent);font-weight:800;font-size:.95rem}
+
+/* ============ RESEARCH METHODS ============ */
+.method-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.method{
+  background:linear-gradient(145deg,rgba(20,16,42,.95),rgba(26,20,55,.7));
+  border:1px solid var(--border);border-radius:22px;padding:2rem;
+  transition:.45s;position:relative;overflow:hidden;
+}
+.method:hover{transform:translateY(-8px);border-color:rgba(6,182,212,.5);box-shadow:0 25px 50px rgba(0,0,0,.5)}
+.method-head{display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem}
+.method-icon{
+  width:52px;height:52px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(6,182,212,.25),rgba(124,58,237,.2));
+  display:flex;align-items:center;justify-content:center;font-size:1.5rem;
+  border:1px solid rgba(6,182,212,.3);flex-shrink:0;
+}
+.method h4{font-size:1.05rem;font-weight:800}
+.method .sub{font-size:.75rem;color:var(--accent2);font-weight:700}
+.method p{color:var(--muted);font-size:.88rem;line-height:1.9;margin-bottom:1rem}
+.method ul{list-style:none;padding:0}
+.method ul li{
+  font-size:.83rem;color:var(--muted);padding:.4rem 0;
+  display:flex;align-items:flex-start;gap:.5rem;
+}
+.method ul li.pro::before{content:'✓';color:var(--green);font-weight:900;flex-shrink:0}
+.method ul li.con::before{content:'✕';color:var(--accent);font-weight:900;flex-shrink:0}
+
+/* ============ RELIABILITY BOX ============ */
+.reliability-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
+@media(max-width:700px){.reliability-grid{grid-template-columns:1fr}}
+.rel-box{
+  border-radius:22px;padding:2rem;border:1px solid var(--border);position:relative;overflow:hidden;
+  background:linear-gradient(145deg,rgba(20,16,42,.95),rgba(26,20,55,.7));
+}
+.rel-box::before{
+  content:'';position:absolute;top:0;right:0;width:80px;height:80px;
+  border-radius:50%;filter:blur(40px);opacity:.5;
+}
+.rel-box.reliability::before{background:var(--accent2)}
+.rel-box.validity::before{background:var(--accent)}
+.rel-box h4{font-size:1.1rem;margin-bottom:.6rem;font-weight:800;display:flex;align-items:center;gap:.6rem}
+.rel-box .en-term{font-size:.75rem;color:var(--muted);font-weight:600;letter-spacing:1px;margin-bottom:1rem;display:block}
+.rel-box p{color:var(--muted);font-size:.9rem;line-height:1.95}
+.rel-box .highlight{
+  margin-top:1rem;padding:.8rem 1rem;border-radius:12px;
+  background:rgba(139,92,246,.1);border-right:3px solid var(--primary-light);
+  font-size:.85rem;color:var(--text);font-weight:600;
+}
+
+/* ============ MISTAKES (سوءبرداشت‌ها) ============ */
+.mistakes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem}
+.mistake{
+  background:linear-gradient(145deg,rgba(20,16,42,.95),rgba(26,20,55,.7));
+  border:1px solid rgba(236,72,153,.2);border-radius:18px;padding:1.6rem;
+  transition:.4s;position:relative;overflow:hidden;
+}
+.mistake::before{
+  content:'✕';position:absolute;top:1rem;left:1rem;font-size:2.5rem;
+  color:rgba(236,72,153,.15);font-weight:900;
+}
+.mistake:hover{transform:translateY(-6px);border-color:rgba(236,72,153,.5);box-shadow:0 20px 45px rgba(0,0,0,.4)}
+.mistake .wrong{
+  font-size:.95rem;font-weight:800;color:var(--accent);margin-bottom:.8rem;
+  display:flex;align-items:center;gap:.5rem;position:relative;z-index:1;
+}
+.mistake .right{
+  font-size:.87rem;color:var(--muted);padding-right:1rem;
+  border-right:2px solid var(--green);line-height:1.9;
+}
+.mistake .right::before{content:'✓ ';color:var(--green);font-weight:900}
+
+/* ============ EXAMPLE / SCENARIO ============ */
+.scenario{
+  display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem;
+}
+@media(max-width:700px){.scenario{grid-template-columns:1fr}}
+.student-card{
+  background:linear-gradient(145deg,rgba(20,16,42,.95),rgba(26,20,55,.7));
+  border:1px solid var(--border);border-radius:22px;padding:2rem;
+  transition:.4s;position:relative;overflow:hidden;
+}
+.student-card:hover{transform:translateY(-6px);box-shadow:0 25px 50px rgba(0,0,0,.5)}
+.student-card.s1{border-top:3px solid var(--accent2)}
+.student-card.s2{border-top:3px solid var(--accent3)}
+.student-card .avatar{
+  width:64px;height:64px;border-radius:50%;margin-bottom:1.2rem;
+  display:flex;align-items:center;justify-content:center;font-size:1.8rem;
+}
+.student-card.s1 .avatar{background:linear-gradient(135deg,rgba(6,182,212,.3),rgba(6,182,212,.1))}
+.student-card.s2 .avatar{background:linear-gradient(135deg,rgba(245,158,11,.3),rgba(245,158,11,.1))}
+.student-card h4{font-size:1.05rem;margin-bottom:1rem;font-weight:800}
+.student-card ul{list-style:none;padding:0}
+.student-card ul li{
+  font-size:.87rem;color:var(--muted);padding:.5rem 0;padding-right:1.2rem;
+  position:relative;line-height:1.8;
+}
+.student-card ul li::before{
+  content:'▸';position:absolute;right:0;color:var(--accent2);font-weight:900;
+}
+.student-card.s2 ul li::before{color:var(--accent3)}
+
+/* ============ HERITABILITY BOX ============ */
+.heritability{
+  background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(6,182,212,.1));
+  border:1px solid var(--border);border-radius:24px;padding:2.5rem;margin-top:2rem;
+}
+.heritability .formula{
+  text-align:center;font-size:1.05rem;font-weight:800;padding:1.5rem;
+  background:rgba(0,0,0,.25);border-radius:16px;margin:1.5rem 0;
+  border:1px dashed rgba(139,92,246,.4);
+  color:var(--primary-light);
+  font-family:monospace;direction:ltr;
+}
+.heritability p{color:var(--muted);font-size:.92rem;line-height:2}
+.heritability .warn{
+  margin-top:1.2rem;padding:1rem 1.3rem;border-radius:14px;
+  background:rgba(245,158,11,.1);border-right:3px solid var(--accent3);
+  font-size:.87rem;color:var(--text);line-height:1.9;
+}
+
+/* ============ TIMELINE ============ */
+.timeline{position:relative;padding:2rem 0;margin-top:2rem}
+.timeline::before{
+  content:'';position:absolute;top:0;bottom:0;right:30px;width:2px;
+  background:linear-gradient(180deg,transparent,var(--primary),var(--accent),transparent);
+}
+.tl-item{
+  display:flex;gap:2rem;margin-bottom:2rem;position:relative;
+}
+.tl-dot{
+  width:16px;height:16px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  margin-top:.4rem;position:relative;z-index:1;
+  box-shadow:0 0 0 5px rgba(124,58,237,.2),0 0 20px var(--primary);
+}
+.tl-content{flex:1;padding-right:1rem}
+.tl-content h4{font-size:1rem;margin-bottom:.4rem;font-weight:800}
+.tl-content .en{font-size:.75rem;color:var(--accent2);font-weight:700;letter-spacing:.5px;margin-bottom:.5rem}
+.tl-content p{font-size:.87rem;color:var(--muted);line-height:1.9}
+
+/* ============ FOOTER ============ */
+footer{
+  text-align:center;padding:4rem 2rem 3rem;margin-top:4rem;
+  border-top:1px solid var(--border);color:var(--muted);font-size:.85rem;
+  position:relative;
+}
+footer::before{
+  content:'';position:absolute;top:0;right:50%;transform:translateX(50%);
+  width:100px;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);
+}
+footer .heart{color:var(--accent);animation:beat 1.5s infinite}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+footer .refs{max-width:800px;margin:2rem auto 0;text-align:right;font-size:.78rem;line-height:2;opacity:.7}
+footer .refs h5{color:var(--text);margin-bottom:.8rem;font-size:.85rem}
+
+/* ============ REVEAL ============ */
+.reveal{opacity:0;transform:translateY(45px);transition:.9s cubic-bezier(.2,.8,.2,1)}
+.reveal.active{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-50px);transition:.9s cubic-bezier(.2,.8,.2,1)}
+.reveal-left.active{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(50px);transition:.9s cubic-bezier(.2,.8,.2,1)}
+.reveal-right.active{opacity:1;transform:translateX(0)}
+
+/* ============ SCROLLBAR ============ */
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--dark)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--primary),var(--accent));border-radius:10px}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(var(--accent),var(--primary))}
+</style>
+</head>
+<body>
+
+<div class="bg-orbs">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+<div class="grid-bg"></div>
+
+<div id="progress"></div>
+
+<nav id="nav">
+  <div class="logo">روان‌شناسی شخصیت</div>
+  <ul class="nav-links">
+    <li><a href="#intro">مقدمه</a></li>
+    <li><a href="#theories">نظریه‌ها</a></li>
+    <li><a href="#bigfive">Big Five</a></li>
+    <li><a href="#genes">ژنتیک</a></li>
+    <li><a href="#methods">سنجش</a></li>
+    <li><a href="#mistakes">سوءبرداشت‌ها</a></li>
+    <li><a href="#end">جمع‌بندی</a></li>
+  </ul>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <svg class="hero-visual" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="90" stroke="url(#g1)" stroke-width=".5"/>
+    <circle cx="100" cy="100" r="70" stroke="url(#g1)" stroke-width=".5"/>
+    <circle cx="100" cy="100" r="50" stroke="url(#g1)" stroke-width=".5"/>
+    <circle cx="100" cy="100" r="30" stroke="url(#g1)" stroke-width=".5"/>
+    <circle cx="100" cy="100" r="8" fill="url(#g1)"/>
+    <g stroke="url(#g1)" stroke-width=".7">
+      <line x1="100" y1="10" x2="100" y2="190"/>
+      <line x1="10" y1="100" x2="190" y2="100"/>
+      <line x1="36" y1="36" x2="164" y2="164"/>
+      <line x1="164" y1="36" x2="36" y2="164"/>
+    </g>
+    <defs>
+      <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#a78bfa"/>
+        <stop offset="50%" stop-color="#ec4899"/>
+        <stop offset="100%" stop-color="#06b6d4"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <span class="hero-badge">مقاله علمی دانشگاهی — روان‌شناسی</span>
+  <h1>روان‌شناسی <span class="grad">شخصیت</span><br>مبانی، نظریه‌ها و روش‌های علمی</h1>
+  <p class="subtitle">
+    یکی از پرسش‌های اساسی روان‌شناسی این است که چرا افراد در شرایط مشابه، رفتارها و واکنش‌های متفاوتی نشان می‌دهند؟ این مقاله به بررسی الگوهای نسبتاً پایدار تفکر، هیجان و رفتار انسان و چگونگی شکل‌گیری آن‌ها می‌پردازد.
+  </p>
+  <div class="meta">
+    <span>✍️ نویسنده: Erfan</span>
+    <span>📅 مهر ۱۴۰۵</span>
+    <span>📖 مطالعه: ~۱۵ دقیقه</span>
+  </div>
+  <div class="hero-btns">
+    <a href="#intro" class="btn btn-primary">شروع مطالعه ←</a>
+    <a href="#bigfive" class="btn btn-ghost">مدل پنج‌عاملی</a>
+  </div>
+  <div class="scroll-hint">اسکرول</div>
+</header>
+
+<!-- ============ INTRO ============ -->
+<section id="intro">
+  <div class="section-title reveal">
+    <span class="tag">۰۱ — مقدمه</span>
+    <h2>شخصیت <span class="grad">چیست؟</span></h2>
+    <p>شخصیت مجموعه‌ای سازمان‌یافته از ویژگی‌ها و فرایندهای روان‌شناختی است که در الگوهای نسبتاً پایدار تفکر، هیجان و رفتار فرد منعکس می‌شود.</p>
+  </div>
+
+  <div class="grid grid-3">
+    <div class="card reveal">
+      <div class="card-icon">📌</div>
+      <h3>نسبتاً پایدار</h3>
+      <p>شخصیت معمولاً در طول زمان ثبات قابل توجهی دارد؛ اما این ثبات به معنای ثابت ماندن کامل نیست.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-icon">🔄</div>
+      <h3>تغییرپذیر</h3>
+      <p>انسان می‌تواند در اثر رشد، یادگیری، تجربه و تغییر شرایط زندگی تحول پیدا کند.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-icon">🧬</div>
+      <h3>چندعاملی</h3>
+      <p>شخصیت حاصل تعامل پیچیده‌ای میان عوامل زیستی، فرایندهای روان‌شناختی، تجربه‌ها و فرهنگ است.</p>
+    </div>
+  </div>
+
+  <div class="reveal" style="margin-top:2.5rem">
+    <h3 style="text-align:center;margin-bottom:1.5rem;font-weight:800">تفاوت شخصیت با خلق‌وخو و رفتار</h3>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>مفهوم</th>
+          <th>توضیح</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>شخصیت</td><td>الگوهای نسبتاً پایدار تفکر، هیجان و رفتار</td></tr>
+        <tr><td>خلق‌وخو</td><td>تفاوت‌های زیستی و هیجانی اولیه که از دوران کودکی قابل مشاهده‌اند</td></tr>
+        <tr><td>رفتار</td><td>واکنش قابل مشاهده فرد در یک موقعیت مشخص</td></tr>
+      </tbody>
+    </table>
+    <p style="text-align:center;color:var(--muted);font-size:.88rem;margin-top:1rem;font-style:italic">
+      یک رفتار منفرد نمی‌تواند به تنهایی شخصیت فرد را تعیین کند.
+    </p>
+  </div>
+</section>
+
+<!-- ============ IMPORTANCE ============ -->
+<section>
+  <div class="section-title reveal">
+    <span class="tag">۰۲ — اهمیت</span>
+    <h2>چرا مطالعه <span class="grad">شخصیت</span> مهم است؟</h2>
+    <p>مطالعه شخصیت کاربردهای علمی و عملی متعددی در حوزه‌های مختلف دارد.</p>
+  </div>
+  <div class="grid grid-2">
+    <div class="card reveal-left">
+      <div class="card-icon">🔍</div>
+      <h3>درک تفاوت‌های فردی</h3>
+      <p>شناخت الگوهای پایدار رفتاری و هیجانی که افراد را از یکدیگر متمایز می‌کند.</p>
+    </div>
+    <div class="card reveal-right">
+      <div class="card-icon">🤝</div>
+      <h3>روابط بین‌فردی</h3>
+      <p>بررسی چگونگی تأثیر ویژگی‌های شخصیتی بر تعاملات اجتماعی و سازگاری با محیط.</p>
+    </div>
+    <div class="card reveal-left">
+      <div class="card-icon">💼</div>
+      <h3>رفتار شغلی</h3>
+      <p>پژوهش درباره ارتباط ویژگی‌های شخصیتی با عملکرد، رضایت شغلی و انتخاب حرفه.</p>
+    </div>
+    <div class="card reveal-right">
+      <div class="card-icon">🩺</div>
+      <h3>سلامت روان</h3>
+      <p>بررسی ارتباط ویژگی‌های شخصیتی با سلامت روان و شناسایی عوامل خطر و محافظت‌کننده.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THEORIES ============ -->
+<section id="theories">
+  <div class="section-title reveal">
+    <span class="tag">۰۳ — نظریه‌ها</span>
+    <h2>دیدگاه‌های <span class="grad">اصلی</span> شخصیت</h2>
+    <p>هر رویکرد بر بخش متفاوتی از فرایند شکل‌گیری رفتار انسان تأکید می‌کند.</p>
+  </div>
+
+  <div class="theory reveal">
+    <div class="theory-num">۱</div>
+    <div class="theory-body">
+      <h3>رویکرد روان‌پویشی</h3>
+      <div class="name">زیگموند فروید</div>
+      <p>در مدل کلاسیک فروید، ذهن از سه بخش <strong>نهاد (Id)</strong>، <strong>من (Ego)</strong> و <strong>فرامن (Superego)</strong> تشکیل شده است. بخشی از فرایندهای ذهنی می‌تواند خارج از آگاهی مستقیم فرد عمل کند. با این حال، بسیاری از ادعاهای اختصاصی این نظریه با معیارهای پژوهش تجربی مدرن به شکل امروزی تأیید نشده‌اند.</p>
+    </div>
+  </div>
+
+  <div class="theory reveal">
+    <div class="theory-num">۲</div>
+    <div class="theory-body">
+      <h3>رویکرد صفات</h3>
+      <div class="name">گوردون آلپورت، ریموند کتل</div>
+      <p>شخصیت را می‌توان با مجموعه‌ای از ویژگی‌های نسبتاً پایدار توصیف کرد. این رویکرد تلاش می‌کند تفاوت‌ها را به صورت قابل اندازه‌گیری و مقایسه‌پذیر بررسی کند.</p>
+    </div>
+  </div>
+
+  <div class="theory reveal">
+    <div class="theory-num">۳</div>
+    <div class="theory-body">
+      <h3>رویکرد انسان‌گرا</h3>
+      <div class="name">کارل راجرز، آبراهام مزلو</div>
+      <p>انسان ذاتاً در پی شکوفایی است. «خودشکوفایی» بالاترین سطح رشد شخصیت است و پذیرش بی‌قید و شرط نقش کلیدی در سلامت روان دارد.</p>
+    </div>
+  </div>
+
+  <div class="theory reveal">
+    <div class="theory-num">۴</div>
+    <div class="theory-body">
+      <h3>رویکرد شناختی-اجتماعی</h3>
+      <div class="name">آلبرت بندورا</div>
+      <p>شخصیت حاصل تعامل متقابل فرد، محیط و رفتار است. یادگیری مشاهده‌ای و باور به خودکارآمدی، رفتار ما را شکل می‌دهند.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BIG FIVE ============ -->
+<section id="bigfive">
+  <div class="section-title reveal">
+    <span class="tag">۰۴ — مدل معاصر</span>
+    <h2>مدل <span class="grad">پنج‌عاملی</span> شخصیت</h2>
+    <p>یکی از شناخته‌شده‌ترین مدل‌های صفات شخصیتی که پنج بُعد گسترده را در نظر می‌گیرد.</p>
+  </div>
+
+  <div class="traits">
+    <div class="trait reveal">
+      <div class="letter">O</div>
+      <h3>گشودگی به تجربه</h3>
+      <p>کنجکاوی فکری، تخیل، علاقه به هنر و ایده‌های جدید</p>
+      <div class="en">Openness</div>
+    </div>
+    <div class="trait reveal">
+      <div class="letter">C</div>
+      <h3>وظیفه‌شناسی</h3>
+      <p>سازمان‌یافتگی، پشتکار، مسئولیت‌پذیری و کنترل تکانه</p>
+      <div class="en">Conscientiousness</div>
+    </div>
+    <div class="trait reveal">
+      <div class="letter">E</div>
+      <h3>برون‌گرایی</h3>
+      <p>فعالیت اجتماعی، انرژی، ابراز هیجان مثبت و تعامل</p>
+      <div class="en">Extraversion</div>
+    </div>
+    <div class="trait reveal">
+      <div class="letter">A</div>
+      <h3>توافق‌پذیری</h3>
+      <p>همکاری، همدلی، اعتماد و رفتارهای بین‌فردی دوستانه</p>
+      <div class="en">Agreeableness</div>
+    </div>
+    <div class="trait reveal">
+      <div class="letter">N</div>
+      <h3>روان‌رنجورخویی</h3>
+      <p>تجربه هیجان‌های منفی مانند اضطراب و نگرانی</p>
+      <div class="en">Neuroticism</div>
+    </div>
+  </div>
+
+  <!-- Bar chart showing traits -->
+  <div class="chart-container reveal">
+    <h3>📊 توزیع مفهومی صفات در مدل پنج‌عاملی</h3>
+    <div class="bar-row">
+      <div class="bar-label">گشودگی</div>
+      <div class="bar-track"><div class="bar-fill" data-width="78%" style="background:linear-gradient(90deg,#7c3aed,#a78bfa)">۷۸٪</div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">وظیفه‌شناسی</div>
+      <div class="bar-track"><div class="bar-fill" data-width="85%" style="background:linear-gradient(90deg,#ec4899,#f472b6)">۸۵٪</div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">برون‌گرایی</div>
+      <div class="bar-track"><div class="bar-fill" data-width="72%" style="background:linear-gradient(90deg,#06b6d4,#22d3ee)">۷۲٪</div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">توافق‌پذیری</div>
+      <div class="bar-track"><div class="bar-fill" data-width="80%" style="background:linear-gradient(90deg,#f59e0b,#fbbf24)">۸۰٪</div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">روان‌رنجورخویی</div>
+      <div class="bar-track"><div class="bar-fill" data-width="55%" style="background:linear-gradient(90deg,#10b981,#34d399)">۵۵٪</div></div>
+    </div>
+    <p style="text-align:center;color:var(--muted);font-size:.78rem;margin-top:1rem;font-style:italic">
+      * این نمودار صرفاً جهت نمایش بصری ابعاد است و نشان‌دهنده نمره‌ی یک فرد خاص نیست.
+    </p>
+  </div>
+
+  <!-- Note about introversion -->
+  <div class="card reveal" style="margin-top:2rem;border-right:4px solid var(--accent2)">
+    <div class="card-icon">💡</div>
+    <h3>نکته مهم درباره درون‌گرایی</h3>
+    <p><strong>درون‌گرایی به معنی خجالتی بودن نیست.</strong> فرد درون‌گرا ممکن است روابط اجتماعی خوبی داشته باشد اما معمولاً از تعامل اجتماعی طولانی یا تحریک اجتماعی شدید کمتر انرژی می‌گیرد.</p>
+  </div>
+</section>
+
+<!-- ============ GENETICS ============ -->
+<section id="genes">
+  <div class="section-title reveal">
+    <span class="tag">۰۵ — ژنتیک و محیط</span>
+    <h2>شخصیت؛ <span class="grad">ژنتیک یا محیط؟</span></h2>
+    <p>پژوهش‌های ژنتیک رفتاری، از جمله مطالعات دوقلوها، نشان داده‌اند که بسیاری از تفاوت‌های فردی در ویژگی‌های شخصیتی دارای مؤلفه ژنتیکی هستند.</p>
+  </div>
+
+  <div class="heritability reveal">
+    <h3 style="font-weight:800;margin-bottom:1rem">مفهوم وراثت‌پذیری (Heritability)</h3>
+    <div class="formula">h² = V<sub>genetic</sub> / V<sub>phenotypic</sub></div>
+    <p>
+      وراثت‌پذیری درباره <strong>میزان تفاوت‌های مشاهده‌شده در یک جمعیت و در یک محیط مشخص</strong> صحبت می‌کند، نه درباره درصد ژنتیکی بودن یک فرد.
+    </p>
+    <div class="warn">
+      ⚠️ این موضوع نباید به این شکل تفسیر شود که «فلان ویژگی شخصیت کاملاً ژنتیکی است». ژنتیک بر شخصیت اثر می‌گذارد، اما ژنتیک به تنهایی شخصیت فرد را تعیین نمی‌کند.
+    </div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top:2rem">
+    <div class="card reveal-left">
+      <div class="card-icon">👨‍👩‍👧</div>
+      <h3>عوامل محیطی مؤثر</h3>
+      <p>خانواده، روابط اجتماعی، فرهنگ، شرایط اقتصادی و اجتماعی، آموزش، تجربه‌های مهم زندگی، محیط شغلی و رویدادهای استرس‌زا یا مثبت.</p>
+    </div>
+    <div class="card reveal-right">
+      <div class="card-icon">🔁</div>
+      <h3>رابطه دوسویه</h3>
+      <p>فرد فقط تحت تأثیر محیط قرار نمی‌گیرد؛ بلکه ویژگی‌های شخصیتی او نیز بر انتخاب محیط و نوع تعاملش با دیگران اثر می‌گذارند.</p>
+    </div>
+  </div>
+
+  <div class="quote reveal" style="margin-top:2.5rem">
+    <p>«شخصیت و محیط یکدیگر را تحت تأثیر قرار می‌دهند.»</p>
+    <div class="author">— اصل تعامل متقابل فرد و محیط</div>
+  </div>
+</section>
+
+<!-- ============ STABILITY ============ -->
+<section>
+  <div class="section-title reveal">
+    <span class="tag">۰۶ — ثبات و تغییر</span>
+    <h2>آیا شخصیت در طول زندگی <span class="grad">تغییر می‌کند؟</span></h2>
+    <p>پژوهش‌های طولی تصویر دقیق‌تری از ثبات و تغییر شخصیت ارائه می‌کنند.</p>
+  </div>
+
+  <div class="stats reveal">
+    <div class="stat"><span class="num" data-count="0.7">۰.۷</span><span class="label">ضریب ثبات نسبی</span></div>
+    <div class="stat"><span class="num" data-count="60">۶۰٪</span><span class="label">تغییر میانگین در طول عمر</span></div>
+    <div class="stat"><span class="num" data-count="5">۵</span><span class="label">عامل اصلی شخصیت</span></div>
+    <div class="stat"><span class="num" data-count="∞">∞</span><span class="label">ترکیب ممکن</span></div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top:2rem">
+    <div class="card reveal-left" style="border-top:3px solid var(--green)">
+      <div class="card-icon">✅</div>
+      <h3>شخصیت نسبتاً پایدار است</h3>
+      <p>ویژگی‌های شخصیتی معمولاً دارای ثبات نسبی هستند و در طول زمان قابل پیش‌بینی باقی می‌مانند.</p>
+    </div>
+    <div class="card reveal-right" style="border-top:3px solid var(--accent3)">
+      <div class="card-icon">🔄</div>
+      <h3>شخصیت کاملاً ثابت نیست</h3>
+      <p>در طول زندگی، برخی ویژگی‌ها ممکن است با افزایش سن به طور متوسط تغییراتی نشان دهند.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SITUATION ============ -->
+<section>
+  <div class="section-title reveal">
+    <span class="tag">۰۷ — شخصیت و موقعیت</span>
+    <h2>رابطه <span class="grad">صفات فرد</span> و موقعیت</h2>
+    <p>رفتار نهایی نتیجه تعامل میان ویژگی‌های فرد و شرایط موقعیتی است.</p>
+  </div>
+
+  <div class="quote reveal">
+    <p>رفتار = ویژگی‌های فرد + شرایط موقعیتی + تعامل میان این دو</p>
+    <div class="author">— دیدگاه تعاملی معاصر</div>
+  </div>
+
+  <div class="card reveal" style="margin-top:2rem">
+    <div class="card-icon">🎭</div>
+    <h3>مثال کاربردی</h3>
+    <p>فردی ممکن است در حالت عادی بسیار اجتماعی باشد، اما هنگام حضور در یک موقعیت رسمی و ناآشنا رفتار محتاطانه‌تری نشان دهد. این نگاه با دیدگاه‌های معاصر سازگارتر از این تصور است که شخصیت به تنهایی تمام رفتار انسان را توضیح می‌دهد.</p>
+  </div>
+</section>
+
+<!-- ============ METHODS ============ -->
+<section id="methods">
+  <div class="section-title reveal">
+    <span class="tag">۰۸ — سنجش</span>
+    <h2>چگونه شخصیت را <span class="grad">اندازه‌گیری می‌کنند؟</span></h2>
+    <p>برای مطالعه علمی شخصیت، پژوهشگران از ابزارهای مختلف استفاده می‌کنند.</p>
+  </div>
+
+  <div class="method-cards">
+    <div class="method reveal">
+      <div class="method-head">
+        <div class="method-icon">📝</div>
+        <div>
+          <h4>پرسشنامه‌های خودگزارشی</h4>
+          <div class="sub">Self-Report Inventories</div>
+        </div>
+      </div>
+      <p>فرد به مجموعه‌ای از جملات درباره خودش پاسخ می‌دهد و پاسخ‌ها برای محاسبه نمره ویژگی‌ها استفاده می‌شوند.</p>
+      <ul>
+        <li class="pro">اجرای نسبتاً آسان</li>
+        <li class="pro">امکان بررسی تعداد زیادی از افراد</li>
+        <li class="pro">استانداردسازی مناسب</li>
+        <li class="con">پاسخ‌دهی اجتماعی‌پسند</li>
+        <li class="con">خطاهای خودشناسی</li>
+        <li class="con">امکان پاسخ‌های غیرصادقانه</li>
+      </ul>
+    </div>
+
+    <div class="method reveal">
+      <div class="method-head">
+        <div class="method-icon">👥</div>
+        <div>
+          <h4>گزارش دیگران</h4>
+          <div class="sub">Observer-Report</div>
+        </div>
+      </div>
+      <p>شخصیت فرد توسط افرادی که او را می‌شناسند ارزیابی می‌شود.</p>
+      <ul>
+        <li class="pro">ارائه اطلاعات مکمل</li>
+        <li class="pro">مشاهده الگوها از دید بیرونی</li>
+        <li class="con">سوگیری مشاهده‌گر</li>
+        <li class="con">وابستگی به شناخت ارزیاب</li>
+      </ul>
+    </div>
+
+    <div class="method reveal">
+      <div class="method-head">
+        <div class="method-icon">🔬</div>
+        <div>
+          <h4>مشاهده رفتاری</h4>
+          <div class="sub">Behavioral Observation</div>
+        </div>
+      </div>
+      <p>پژوهشگر رفتار افراد را در شرایط مشخص مشاهده و ثبت می‌کند.</p>
+      <ul>
+        <li class="pro">بررسی رفتار واقعی</li>
+        <li class="pro">دقت بالای اندازه‌گیری</li>
+        <li class="con">زمان‌برتر و پرهزینه‌تر</li>
+        <li class="con">محدودیت تعمیم‌پذیری</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RELIABILITY & VALIDITY ============ -->
+<section>
+  <div class="section-title reveal">
+    <span class="tag">۰۹ — کیفیت ابزار</span>
+    <h2>پایایی و <span class="grad">روایی</span> آزمون شخصیت</h2>
+    <p>یک آزمون شخصیت صرفاً به دلیل داشتن سؤال‌های زیاد، علمی محسوب نمی‌شود.</p>
+  </div>
+
+  <div class="reliability-grid">
+    <div class="rel-box reliability reveal-left">
+      <h4>🎯 پایایی</h4>
+      <span class="en-term">RELIABILITY</span>
+      <p>پایایی به میزان ثبات و قابلیت اعتماد اندازه‌گیری اشاره دارد. اگر آزمون در شرایط مشابه نتایج مشابهی بدهد، پایا است.</p>
+      <div class="highlight">مثال: ترازویی که هر بار وزن متفاوتی نشان دهد، پایا نیست.</div>
+    </div>
+    <div class="rel-box validity reveal-right">
+      <h4>✅ روایی</h4>
+      <span class="en-term">VALIDITY</span>
+      <p>روایی به این موضوع مربوط است که آیا ابزار واقعاً همان سازه‌ای را اندازه‌گیری می‌کند که ادعا می‌کند.</p>
+      <div class="highlight">مثال: ترازوی دقیق که به جای وزن، قد را اندازه بگیرد، روایی ندارد.</div>
+    </div>
+  </div>
+
+  <div class="card reveal" style="margin-top:2rem;border-right:4px solid var(--accent3)">
+    <div class="card-icon">⚠️</div>
+    <h3>نکته کلیدی</h3>
+    <p>یک آزمون می‌تواند پایا باشد اما لزوماً روایی کافی نداشته باشد. این تفاوت برای ارزیابی علمی تست‌های شخصیت بسیار مهم است.</p>
+  </div>
+</section>
+
+<!-- ============ ONLINE TESTS ============ -->
+<section>
+  <div class="section-title reveal">
+    <span class="tag">۱۰ — ارزیابی انتقادی</span>
+    <h2>آیا تست‌های آنلاین شخصیت <span class="grad">علمی هستند؟</span></h2>
+    <p>هر آزمون شخصیتی که در اینترنت منتشر شده باشد الزاماً اعتبار علمی ندارد.</p>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card reveal-left">
+      <div class="card-icon">🔎</div>
+      <h3>سؤالات ارزیابی</h3>
+      <p>چه کسی آن را طراحی کرده است؟ آیا مقاله علمی درباره آن منتشر شده؟ نمونه پژوهشی آن چقدر بوده؟ پایایی و روایی چگونه بررسی شده؟ آیا نسخه استاندارد و معتبر دارد؟</p>
+    </div>
+    <div class="card reveal-right" style="border-right:4px solid var(--accent)">
+      <div class="card-icon">🚫</div>
+      <h3>هشدار</h3>
+      <p>جمله‌هایی مانند «با پاسخ دادن به ۱۰ سؤال شخصیت واقعی تو را پیدا می‌کنیم» به تنهایی نشانه علمی بودن یک آزمون نیست.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PERSONALITY VS DISORDER ============ -->
+<section>
+  <div class="section-title reveal">
+    <span class="tag">۱۱ — تمایز مهم</span>
+    <h2>تفاوت <span class="grad">ویژگی شخصیت</span> با اختلال شخصیت</h2>
+    <p>این دو مفهوم نباید با یکدیگر اشتباه گرفته شوند.</p>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card reveal-left" style="border-top:3px solid var(--accent2)">
+      <div class="card-icon">🎨</div>
+      <h3>ویژگی شخصیت</h3>
+      <p>همه افراد ویژگی‌های شخصیتی دارند؛ این ویژگی‌ها بخش طبیعی تنوع انسانی هستند و به تنهایی نشانه اختلال نیستند. مثال: اضطراب بیشتر، کمال‌گرایی، برون‌گرایی پایین، حساسیت هیجانی.</p>
+    </div>
+    <div class="card reveal-right" style="border-top:3px solid var(--accent)">
+      <div class="card-icon">🏥</div>
+      <h3>اختلال شخصیت</h3>
+      <p>یک مفهوم بالینی است و به الگوهای پایدار و مشکل‌ساز در تجربه درونی و رفتار مربوط می‌شود که می‌توانند باعث اختلال قابل توجه در عملکرد یا روابط شوند. تشخیص نیازمند ارزیابی تخصصی و بالینی است.</p>
+    </div>
+  </div>
+
+  <div class="quote reveal" style="margin-top:2rem">
+    <p>ویژگی شخصیتی ≠ رفتار منفرد ≠ تشخیص روان‌پزشکی</p>
+        <div class="author">— نکته پایانی برای مطالعه علمی شخصیت</div>
+  </div>
+</section>
+
+<!-- ============ EXAMPLE ============ -->
+<section>
+  <div class="section-title reveal">
+    <span class="tag">۱۲ — مثال کاربردی</span>
+    <h2>یک مثال برای <span class="grad">درک بهتر شخصیت</span></h2>
+    <p>فرض کنیم دو دانشجو برای ارائه دانشگاه آماده می‌شوند.</p>
+  </div>
+
+  <div class="scenario">
+    <div class="student-card s1 reveal-left">
+      <div class="avatar">🗣️</div>
+      <h4>دانشجوی اول</h4>
+      <ul>
+        <li>از تعامل اجتماعی لذت می‌برد</li>
+        <li>سریع با دیگران ارتباط برقرار می‌کند</li>
+        <li>هنگام ارائه انرژی بیشتری نشان می‌دهد</li>
+      </ul>
+    </div>
+    <div class="student-card s2 reveal-right">
+      <div class="avatar">🤔</div>
+      <h4>دانشجوی دوم</h4>
+      <ul>
+        <li>ترجیح می‌دهد قبل از صحبت کردن آماده شود</li>
+        <li>در جمع‌های بزرگ کمتر صحبت می‌کند</li>
+        <li>در تعامل‌های یک‌به‌یک راحت‌تر است</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card reveal" style="margin-top:2rem;text-align:center;border-top:3px solid var(--green)">
+    <p style="font-size:1rem;color:var(--text);font-weight:600">
+      این تفاوت الزاماً نشان‌دهنده بهتر یا بدتر بودن یکی از آن‌ها نیست. ممکن است هر دو دانشجو عملکرد تحصیلی بسیار خوبی داشته باشند، اما سبک شخصیتی متفاوتی داشته باشند.
+    </p>
+    <p style="margin-top:1rem;color:var(--accent);font-weight:800">تفاوت شخصیتی با ارزش‌گذاری اخلاقی یکی نیست.</p>
+  </div>
+</section>
+
+<!-- ============ MISTAKES ============ -->
+<section id="mistakes">
+  <div class="section-title reveal">
+    <span class="tag">۱۳ — سوءبرداشت‌ها</span>
+    <h2>چند <span class="grad">سوءبرداشت رایج</span> درباره شخصیت</h2>
+    <p>اصلاح این باورها برای درک علمی شخصیت ضروری است.</p>
+  </div>
+
+  <div class="mistakes">
+    <div class="mistake reveal">
+      <div class="wrong">درون‌گرا یعنی خجالتی</div>
+      <div class="right">درون‌گرایی و خجالتی بودن دو مفهوم متفاوت هستند. درون‌گرایی به منبع انرژی و ترجیح تعامل اشاره دارد، نه ترس اجتماعی.</div>
+    </div>
+    <div class="mistake reveal">
+      <div class="wrong">شخصیت انسان کاملاً ثابت است</div>
+      <div class="right">شخصیت ثبات نسبی دارد، اما در طول زندگی تغییر نیز می‌کند.</div>
+    </div>
+    <div class="mistake reveal">
+      <div class="wrong">یک تست می‌تواند شخصیت واقعی را کاملاً مشخص کند</div>
+      <div class="right">شخصیت یک سازه پیچیده است و هیچ آزمون کوتاهی نمی‌تواند تمام ابعاد آن را به طور کامل توصیف کند.</div>
+    </div>
+    <div class="mistake reveal">
+      <div class="wrong">اگر کسی ویژگی خاصی دارد، حتماً اختلال دارد</div>
+      <div class="right">ویژگی شخصیتی با تشخیص بالینی تفاوت دارد. تشخیص اختلال نیازمند ارزیابی تخصصی است.</div>
+    </div>
+    <div class="mistake reveal">
+      <div class="wrong">ژن‌ها شخصیت را تعیین می‌کنند</div>
+      <div class="right">ژنتیک مهم است، اما شخصیت حاصل تعامل پیچیده عوامل زیستی و محیطی است.</div>
+    </div>
+    <div class="mistake reveal">
+      <div class="wrong">برون‌گرایی همیشه بهتر از درون‌گرایی است</div>
+      <div class="right">هر دو سبک شخصیتی مزایا و چالش‌های خاص خود را دارند و هیچ‌کدام ذاتاً برتر نیستند.</div>
+    </div>
+    <div class="mistake reveal">
+      <div class="wrong">شخصیت را می‌توان با یک برچسب ساده توصیف کرد</div>
+      <div class="right">شخصیت چندبُعدی است و برچسب‌های ساده مانند «فلانی درون‌گراست» تصویر ناقصی ارائه می‌دهند.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TIMELINE OF RESEARCH ============ -->
+<section>
+  <div class="section-title reveal">
+    <span class="tag">۱۴ — مسیر پژوهش</span>
+    <h2>سیر تحول <span class="grad">مطالعه شخصیت</span></h2>
+    <p>نگاهی به مسیر تاریخی شکل‌گیری مدل‌های معاصر شخصیت.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <h4>رویکرد روان‌کاوی</h4>
+        <div class="en">Freud — اوایل قرن بیستم</div>
+        <p>ارائه اولین چارچوب نظام‌مند برای توضیح ساختار شخصیت با تمرکز بر فرایندهای ناخودآگاه.</p>
+      </div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <h4>نظریه صفات</h4>
+        <div class="en">Allport & Cattell — دهه ۱۹۳۰-۱۹۶۰</div>
+        <p>شناسایی و دسته‌بندی صفات شخصیتی و تلاش برای اندازه‌گیری کمّی آن‌ها با روش‌های آماری.</p>
+      </div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <h4>رویکرد انسان‌گرا</h4>
+        <div class="en">Rogers & Maslow — دهه ۱۹۵۰-۱۹۶۰</div>
+        <p>تأکید بر رشد شخصی، خودشکوفایی و نگاه مثبت به طبیعت انسان.</p>
+      </div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <h4>رویکرد شناختی-اجتماعی</h4>
+        <div class="en">Bandura — دهه ۱۹۶۰-۱۹۸۰</div>
+        <p>تأکید بر یادگیری مشاهده‌ای، خودکارآمدی و تعامل متقابل فرد، محیط و رفتار.</p>
+      </div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <h4>مدل پنج‌عاملی</h4>
+        <div class="en">Costa & McCrae — دهه ۱۹۸۰ تاکنون</div>
+        <p>تبدیل رویکرد صفات به چارچوبی یکپارچه و پذیرفته‌شده در پژوهش‌های معاصر شخصیت.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONCLUSION ============ -->
+<section id="end">
+  <div class="section-title reveal">
+    <span class="tag">۱۵ — جمع‌بندی</span>
+    <h2>نگاه <span class="grad">علمی</span> به شخصیت</h2>
+    <p>روان‌شناسی شخصیت یکی از حوزه‌های مهم روان‌شناسی است که به بررسی تفاوت‌های فردی و الگوهای نسبتاً پایدار تفکر، هیجان و رفتار می‌پردازد.</p>
+  </div>
+
+  <div class="grid grid-3">
+    <div class="card reveal">
+      <div class="card-icon">🧩</div>
+      <h3>چندعاملی</h3>
+      <p>شخصیت را نمی‌توان تنها با ژنتیک، محیط، یک آزمون یا یک برچسب توضیح داد.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-icon">📊</div>
+      <h3>اندازه‌گیری معتبر</h3>
+      <p>نگاه علمی به شخصیت بر پایایی، روایی و شواهد تجربی تکیه می‌کند.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-icon">🔬</div>
+      <h3>تعامل فرد و محیط</h3>
+      <p>رفتار انسان نتیجه تعامل میان ویژگی‌های فرد، فرایندهای روان‌شناختی و شرایط محیطی است.</p>
+    </div>
+  </div>
+
+  <div class="quote reveal" style="margin-top:2.5rem">
+    <p>نگاه علمی به شخصیت به جای تلاش برای قرار دادن افراد در چند «تیپ ثابت»، بیشتر به بررسی تفاوت‌های فردی، اندازه‌گیری معتبر، شواهد تجربی و تعامل فرد و محیط توجه می‌کند.</p>
+    <div class="author">— جمع‌بندی مقاله</div>
+  </div>
+</section>
+
+<!-- ============ REFERENCES ============ -->
+<section>
+  <div class="section-title reveal">
+    <span class="tag">۱۶ — منابع</span>
+    <h2>منابع پیشنهادی برای <span class="grad">مطالعه دانشگاهی</span></h2>
+  </div>
+
+  <div class="card reveal">
+    <ol style="padding-right:1.5rem;color:var(--muted);font-size:.9rem;line-height:2.3">
+      <li>American Psychological Association (APA). <em>APA Dictionary of Psychology</em>.</li>
+      <li>McCrae, R. R., & Costa, P. T. Jr. آثار مربوط به مدل پنج‌عاملی شخصیت.</li>
+      <li>John, O. P., Naumann, L. P., & Soto, C. J. (2008). Paradigm shift to the integrative Big Five trait taxonomy.</li>
+      <li>Roberts, B. W., Walton, K. E., & Viechtbauer, W. (2006). Patterns of mean-level change in personality traits across the life course.</li>
+      <li>Soto, C. J., & John, O. P. پژوهش‌های مربوط به سنجش و ساختار پنج عامل بزرگ شخصیت.</li>
+      <li>Larsen, R. J., & Buss, D. M. <em>Personality Psychology: Domains of Knowledge About Human Nature</em>.</li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <p>ساخته‌شده با <span class="heart">♥</span> برای ارائه‌ی علمی روان‌شناسی شخصیت</p>
+  <p style="margin-top:.5rem;font-size:.78rem">نویسنده: Erfan — مهر ۱۴۰۵</p>
+  <div class="refs">
+    <h5>نکته پایانی:</h5>
+    مطالعه شخصیت زمانی علمی‌تر است که میان سه موضوع تفاوت گذاشته شود: ویژگی شخصیتی ≠ رفتار منفرد ≠ تشخیص روان‌پزشکی.
+  </div>
+</footer>
+
+<script>
+// ============ PROGRESS BAR ============
+const progressBar = document.getElementById('progress');
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const p = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  progressBar.style.width = p + '%';
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ============ REVEAL ON SCROLL ============
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('active'), i * 60);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => io.observe(el));
+
+// ============ BAR CHART ANIMATION ============
+const chartObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.bar-fill').forEach((bar, i) => {
+        setTimeout(() => {
+          bar.style.width = bar.dataset.width;
+        }, i * 150);
+      });
+      chartObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.chart-container').forEach(el => chartObserver.observe(el));
+
+// ============ SMOOTH SCROLL FOR NAV ============
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// ============ PARALLAX HERO ============
+document.addEventListener('mousemove', (e) => {
+  const x = (e.clientX / window.innerWidth - 0.5) * 20;
+  const y = (e.clientY / window.innerHeight - 0.5) * 20;
+  const visual = document.querySelector('.hero-visual');
+  if (visual) visual.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+});
+</script>
+</body>
+</html>
